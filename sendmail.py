@@ -4,7 +4,7 @@ Configuration and methods for sending mails.
 import smtplib
 from email.MIMEText import MIMEText
 
-reply-to = "sender@example.com"
+replyto = "sender@example.com"
 server = None
 
 def connectToServer():
@@ -31,7 +31,7 @@ def sendmail(to, subject, text):
     text    -- the text to send
     """
     global server
-    global reply-to
+    global replyto
 
     if server is None:
         connectToServer()
@@ -39,6 +39,6 @@ def sendmail(to, subject, text):
     msg = MIMEText(text)
     msg["Subject"] = subject
     msg["To"] = to
-    msg["Reply-to"] = reply-to
+    msg["Reply-to"] = replyto
     
     server.sendmail(msg["Reply-to"], msg["To"], msg.as_string())

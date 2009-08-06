@@ -2,9 +2,10 @@
 Used as a centralized way to send email over an SMTP server.
 '''
 import os
-
 import urllib2
 import shutil
+
+from BeautifulSoup import BeautifulSoup
 
 def processSitesInFile(sitesLines):
     """
@@ -48,17 +49,18 @@ def checkSite(siteDict, site):
     url = siteDict[site]
     hash = url.__hash__()
     content = urllib2.urlopen(url).read()
+    prettyContent = BeautifulSoup(content).prettify()
     
     if not os.path.exists(site + ".old"):
         file = open(site + ".old", "w")
-        file.write(content)
+        file.write(prettyContent)
         file.close()
     else:
         oldfile = site + ".old"
         newfile = site + ".new"
         
         file = open(newfile, "w")
-        file.write(content)
+        file.write(prettyContent)
         file.close()
         
         diff = os.popen("diff -uw " + oldfile + " " + newfile).read()

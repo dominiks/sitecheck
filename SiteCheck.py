@@ -3,6 +3,7 @@ Checks a list of urls for changes.
 
 See README for more information.
 '''
+import sys
 from time import strftime
 
 import sendmail
@@ -55,7 +56,8 @@ def checkSites():
         
 if __name__ == "__main__":
     try:
-        return checkSites()
+        sys.exit(checkSites())
     except Exception as err:
 	print err # Stupid but gets the job done...
+	sys.exit(1)
     
