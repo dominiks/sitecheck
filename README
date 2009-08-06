@@ -25,3 +25,4 @@ Configuration:
 
 Start SiteCheck.py every time you want the sites checked or as you see fit.
 
+Uses BeautifulSoup from http://www.crummy.com/software/BeautifulSoup/
