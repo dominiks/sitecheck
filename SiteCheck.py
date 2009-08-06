@@ -9,12 +9,13 @@ import sendmail
 import sites
 
 def checkSites():
+    """ Start the site checking business. """
+
     siteFile = open("sites.txt", "r")
     sitesLines = siteFile.readlines()
     siteDict = sites.processSitesInFile(sitesLines)
     
     sitesWithDiff = {}
-    
     for site in siteDict:
         diff = sites.checkSite(siteDict, site)
         if diff is not None:
@@ -23,6 +24,7 @@ def checkSites():
 
     print "Found",len(sitesWithDiff), "Sites with diffs"
 
+    # construct the email notice
     if len(sitesWithDiff) > 0:
         subject = "Observer Report - "
         text = "Observed Changes:\n"
@@ -53,7 +55,7 @@ def checkSites():
         
 if __name__ == "__main__":
     try:
-        checkSites()
+        return checkSites()
     except Exception as err:
-	print err
+	print err # Stupid but gets the job done...
     

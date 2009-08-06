@@ -1,9 +1,19 @@
 '''
-
+Used as a centralized way to send email over an SMTP server.
 '''
-import os, urllib2, shutil
+import os
+
+import urllib2
+import shutil
 
 def processSitesInFile(sitesLines):
+    """
+    Iterate over the lines from the sites.txt and create a
+    dictionary that maps the sites' names to their url.
+
+    sitesLines -- list of Strings directly taken from the file
+    """
+
     sites = {}
     for site in sitesLines:
         site = site.strip()
@@ -24,6 +34,16 @@ def processSitesInFile(sitesLines):
     return sites
 
 def checkSite(siteDict, site):
+    """
+    Download the site and diff it with the old version when it was downloaded
+    before.
+
+    siteDict -- the dictionary of name->url
+    site -- the name of the site as used in the siteDict
+
+    return: result of the diff
+    """
+
     diff = None
     url = siteDict[site]
     hash = url.__hash__()
