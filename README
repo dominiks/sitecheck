@@ -3,13 +3,15 @@ SiteCheck 1.1
 Born from the necessity of monitoring static html university sites for
 changes.
 
-Safes a local copy of each file specified in the sites.txt (one url per line).
+Saves a local copy of each file specified in the sites.txt (one url per line).
 And performs a `diff -uw` on this and the previous version to see if there
 are any changes. When changes are found the diffs for all sites get mailed
 to each address in mails.txt.
 
 Current use case for this script is running it in a cron job to check static
 html pages for changes and sending the diffs to a mailing list.
+
+Emails are send over a configured SMTP server.
 
 Configuration:
 - Set the email that is to be used as the originator in sendmail.py 
