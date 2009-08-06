@@ -39,7 +39,7 @@ def checkSites():
             
         subject = subject[:-2]
 	subject += " " + strftime("%d.%m.%Y")
-        text += "SiteCheck.py - 1.1"
+        text += "SiteCheck.py - 1.2"
     
         print subject
         print text
