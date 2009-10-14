@@ -1,1 +1,7 @@
 *.pyc
+*.old
+mails.txt
+sites.txt
+.project
+.pydev
+.pydevproject
