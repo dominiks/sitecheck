@@ -36,7 +36,7 @@ def sendmail(to, subject, text):
     if server is None:
         connectToServer()
 
-    msg = MIMEText(text)
+    msg = MIMEText(text, charset="UTF-8")
     msg["Subject"] = subject
     msg["To"] = to
     msg["Reply-to"] = replyto
