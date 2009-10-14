@@ -2,21 +2,26 @@
 Configuration and methods for sending mails.
 '''
 import smtplib
-from email.MIMEText import MIMEText
+from email.mime.text import MIMEText
 
-replyto = "sender@example.com"
+SMTP_SERVER = "localhost"
+
+replyto = "noreply@example.com"
 server = None
 
 def connectToServer():
     """ Establish a connection to the specified smtp server. """
     global server
+    if server is not None:
+        closeConnection()
+
     server = smtplib.SMTP()
-    server.connect("localhost")
+    server.connect(SMTP_SERVER)
 
 def closeConnection():
     """ Close the connection to the server. """
     global server
-    if server is None:
+    if server is not None:
         server.close()
 
 def sendmail(to, subject, text):
@@ -36,9 +41,20 @@ def sendmail(to, subject, text):
     if server is None:
         connectToServer()
 
-    msg = MIMEText(text)
+    to = safe_unicode(to)
+    subject = safe_unicode(subject)
+    text = safe_unicode(text)
+
+    msg = MIMEText(text.encode("UTF-8"), "plain", "UTF-8")
     msg["Subject"] = subject
     msg["To"] = to
     msg["Reply-to"] = replyto
-    
+
     server.sendmail(msg["Reply-to"], msg["To"], msg.as_string())
+
+def safe_unicode(textstring):
+    """ Returns a unicode representation of the given string. """
+    try:
+        return unicode(textstring, "UTF-8")
+    except TypeError:
+        return textstring #was already unicode
